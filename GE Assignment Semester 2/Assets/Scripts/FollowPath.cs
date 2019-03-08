@@ -26,14 +26,14 @@ public class FollowPath : SteeringBehaviour {
     public override Vector3 Calculate()
     {
         nextWaypoint = path.NextWaypoint();
-        if (Vector3.Distance(transform.position, nextWaypoint) < 3)
+        if (Vector3.Distance(transform.position, nextWaypoint) < 10f)
         {
             path.AdvanceToNext();
         }
 
         if (!path.looped && path.IsLast())
         {
-            return boid.ArriveForce(nextWaypoint, 20);
+            return boid.ArriveForce(nextWaypoint, 20); 
         }
         else
         {
