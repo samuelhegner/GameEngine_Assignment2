@@ -1,4 +1,9 @@
-# GameEngine_Assignment2
+# GameEngine_Assignment2: Battle over Coruscant
+## The origin
+The original spacebattle that will be depicted in this assignment, comes from the Star Wars universe and can be seen in "Star Wars: Episode III – Revenge of the Sith". The bellow video shows the battle in movie form.
+
+[![](https://img.youtube.com/vi/ZZq53GloUhw/0.jpg)](https://www.youtube.com/watch?v=ZZq53GloUhw)
+
 ## The Goal
 The goal of this assignment is to get a completely autonomous space battle to play out while two Jedi Interceptors to follow a long path through the carnage. One of the Jedi’s will be following a designated path whilst the other offset pursues the first. 
 
