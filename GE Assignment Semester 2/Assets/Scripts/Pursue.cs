@@ -8,6 +8,7 @@ public class Pursue : SteeringBehaviour
 
     Vector3 targetPos;
 
+
     public void OnDrawGizmos()
     {
         if (Application.isPlaying)

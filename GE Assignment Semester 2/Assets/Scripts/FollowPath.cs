@@ -9,6 +9,8 @@ public class FollowPath : SteeringBehaviour {
 
     Vector3 nextWaypoint;
 
+    public float slowingDistance = 15.0f;
+
     public void OnDrawGizmos()
     {
         if (isActiveAndEnabled && Application.isPlaying)
@@ -33,7 +35,7 @@ public class FollowPath : SteeringBehaviour {
 
         if (!path.looped && path.IsLast())
         {
-            return boid.ArriveForce(nextWaypoint, 20); 
+            return boid.ArriveForce(nextWaypoint, slowingDistance); 
         }
         else
         {
