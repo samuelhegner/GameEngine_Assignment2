@@ -14,7 +14,7 @@ The second part will be the republican and droid starfighters. A dog fighting sy
 To track the battle a fully autonomous cameraman ai will be inplace to create and place unity cameras where ever the action is. The cameras will also use steering behaviours to follow ships and show the action from many interesting angles.
 
 ## The Storyboard
-<img src="Pictures/Storyboard_Cam.jpg">
+<img src="Pictures/Storyboard_Cam.png">
 
 ## What is there now
 The models that will be used can be found in the 3d art creation scene. They are sized to a somewhat accurate scale. Dogfighting will happen between the Arc-170s and the Vulture droids. Sadly I wasn't able to find a good model for the Tri-Droid fighters. Two separate star destroyers form the Republican and the Droid side will take part in a battle of their own. The two Jedi starfighters will be used as the main protagonists in the scene. The Providence model will be static and serve as scenery.
