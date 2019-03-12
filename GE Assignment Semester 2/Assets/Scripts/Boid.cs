@@ -21,6 +21,10 @@ public class Boid : MonoBehaviour
 
     public float currentSpeed;
 
+    public bool camera;
+
+    public Transform cameraTarget;
+
 
 
 
@@ -114,7 +118,13 @@ public class Boid : MonoBehaviour
         if (velocity.magnitude > 0.05f)
         {
             Vector3 tempUp = Vector3.Lerp(transform.up, Vector3.up + (acceleration * banking), Time.deltaTime * 3.0f);
-            transform.LookAt(transform.position + velocity, tempUp);
+
+            if (camera){
+                transform.LookAt(cameraTarget, tempUp);
+            }else{
+                transform.LookAt(transform.position + velocity, tempUp);
+            }
+
 
             transform.position += velocity * Time.deltaTime;
 
