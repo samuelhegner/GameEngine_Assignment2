@@ -8,6 +8,9 @@ public class Pursue : SteeringBehaviour
 
     Vector3 targetPos;
 
+    private void Start()
+    {
+    }
 
     public void OnDrawGizmos()
     {

@@ -36,10 +36,9 @@ public class Boid : MonoBehaviour
 
         foreach (SteeringBehaviour b in behaviours)
         {
-            if (b.isActiveAndEnabled)
-            {
-                this.behaviours.Add(b);
-            }
+
+            this.behaviours.Add(b);
+
         }
     }
 
@@ -119,9 +118,12 @@ public class Boid : MonoBehaviour
         {
             Vector3 tempUp = Vector3.Lerp(transform.up, Vector3.up + (acceleration * banking), Time.deltaTime * 3.0f);
 
-            if (camera){
+            if (camera)
+            {
                 transform.LookAt(cameraTarget, tempUp);
-            }else{
+            }
+            else
+            {
                 transform.LookAt(transform.position + velocity, tempUp);
             }
 

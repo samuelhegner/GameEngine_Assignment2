@@ -26571,9 +26571,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1492971283507248037}
   - component: {fileID: 2091762485}
+  - component: {fileID: 2870844563819708603}
+  - component: {fileID: 6904517785863870339}
+  - component: {fileID: 2106570658}
   - component: {fileID: 3362673328017583111}
   - component: {fileID: 4645536254161933107}
-  - component: {fileID: 6904517785863870339}
   m_Layer: 0
   m_Name: ARC 170
   m_TagString: Untagged
@@ -26612,13 +26614,74 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   mass: 1
-  damping: 0.01
+  damping: 0.5
   banking: 0.1
-  maxSpeed: 5
-  maxForce: 10
+  maxSpeed: 60
+  maxForce: 100
   currentSpeed: 0
   camera: 0
   cameraTarget: {fileID: 0}
+--- !u!114 &2870844563819708603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357987113265731692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70283b893f0cde24889b7a23955d53ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  force: {x: 0, y: 0, z: 0}
+  boid: {fileID: 0}
+  scale: 4
+  forwardFeelerDepth: 30
+  sideFeelerDepth: 15
+  frontFeelerUpdatesPerSecond: 10
+  sideFeelerUpdatesPerSecond: 5
+  feelerRadius: 2
+  forceType: 0
+  mask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &6904517785863870339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357987113265731692}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 465fb9d44725ef4419fb68ab03051ca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  force: {x: 0, y: 0, z: 0}
+  boid: {fileID: 0}
+  leader: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
+  sideDistance: 1
+  bottomDistance: 0.2
+  slowingDistance: 125
+--- !u!114 &2106570658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357987113265731692}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67e85e3068695044a9736159d65d4eb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  force: {x: 0, y: 0, z: 0}
+  boid: {fileID: 0}
+  target: {fileID: 0}
 --- !u!114 &3362673328017583111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26646,23 +26709,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updatesPerSecond: 5
---- !u!114 &6904517785863870339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2357987113265731692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 465fb9d44725ef4419fb68ab03051ca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weight: 1
-  force: {x: 0, y: 0, z: 0}
-  boid: {fileID: 0}
-  leader: {fileID: 0}
-  slowingDistance: 0
 --- !u!1 &2360732380430981209
 GameObject:
   m_ObjectHideFlags: 0

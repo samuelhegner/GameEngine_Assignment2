@@ -8,15 +8,17 @@ public class OffsetPursue : SteeringBehaviour
 
     Vector3 targetPos;
     Vector3 worldTarget;
-    Vector3 offset;
+    public Vector3 offset;
+
+    public float sideDistance;
+    public float bottomDistance;
 
     public float slowingDistance;
 
     // Start is called before the first frame update
     void Start()
     {
-        // There is a bug here!!
-        offset = transform.position - leader.transform.position;
+
     }
 
     public override Vector3 Calculate()
