@@ -21,10 +21,12 @@ class FormationApproach : State
 {
     public override void Enter()
     {
+
     }
 
     public override void Think()
     {
+
     }
 
     public override void Exit()
@@ -83,13 +85,22 @@ public class Arc170Controller : MonoBehaviour
 
     public bool leader;
 
-    public int number;
+    public int formationNumber;
 
     void Awake()
     {
         stateMachine = GetComponent<StateMachine>();
         if (leader) {
-            //gameObject.AddComponent
+            List<Arc170Controller> allies = new List<Arc170Controller>();
+            Arc170Controller[] _temp = GameObject.FindObjectsOfType<Arc170Controller>();
+
+            for (int i = 0; i < _temp.Length; i++) {
+                if (_temp[i] != this) {
+                    allies.Add(_temp[i]);
+                }
+            }
+
+            AssignSquad(allies.ToArray());
         }
     }
 
@@ -106,5 +117,21 @@ public class Arc170Controller : MonoBehaviour
 
     void Update()
     {   
+    }
+
+    void AssignSquad(Arc170Controller[] allies) {
+
+        int num = 1;
+
+        for (int i = 0;  i < allies.Length; i++) {
+            if (i % 2 != 0)
+            {
+                allies[i].formationNumber = num;
+                num++;
+            }
+            else {
+                allies[i].formationNumber = -num;
+            }
+        }
     }
 }
