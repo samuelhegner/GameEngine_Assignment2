@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class LeadAllies : State
+class LeadAlliesR : State
 {
     Pursue pursue;
 
@@ -25,7 +25,7 @@ class LeadAllies : State
     }
 }
 
-class FormationApproach : State
+class FormationApproachR : State
 {
 
     OffsetPursue offsetPursue;
@@ -62,7 +62,7 @@ class FormationApproach : State
     }
 }
 
-class ChaseDown : State
+class ChaseDownR : State
 {
     public override void Enter()
     {
@@ -80,7 +80,7 @@ class ChaseDown : State
     }
 }
 
-class HelpAlly : State
+class HelpAllyR : State
 {
     public override void Enter()
     {
@@ -98,7 +98,7 @@ class HelpAlly : State
     }
 }
 
-class ShakeEnemy : State
+class ShakeEnemyR : State
 {
     public override void Enter()
     {
@@ -118,6 +118,9 @@ class ShakeEnemy : State
 
 public class Arc170Controller : MonoBehaviour
 {
+    public Boid allyNeedsHelp;
+    public Boid enemyToChase;
+
     StateMachine stateMachine;
 
     public bool leader;
@@ -145,10 +148,10 @@ public class Arc170Controller : MonoBehaviour
     {
         if (leader)
         {
-            stateMachine.ChangeState(new LeadAllies());
+            stateMachine.ChangeState(new LeadAlliesR());
         }
         else {
-            stateMachine.ChangeState(new FormationApproach());
+            stateMachine.ChangeState(new FormationApproachR());
         }
     }
 

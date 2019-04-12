@@ -19,14 +19,15 @@ public class SpawnShip : MonoBehaviour
 
     public IEnumerator Spawn() {
         while (true){
+            yield return new WaitForSeconds(1f / spawnRatePerSecond);
+
             if (usePool)
             {
-                Object_Pool.Instance.SpawnFromPool("poolString", transform.position, Quaternion.identity);
+                Object_Pool.Instance.SpawnFromPool(poolString, transform.position, Quaternion.identity);
             }
             else if(ship != null) {
                 Instantiate(ship, transform.position, Quaternion.identity);
             }
-            yield return new WaitForSeconds(1f / spawnRatePerSecond);
         }
     }
 

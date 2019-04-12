@@ -58,7 +58,6 @@ public class Boid : MonoBehaviour
 
         if (distance < 10f)
         {
-            print("happening");
             return Vector3.zero;
         }
 

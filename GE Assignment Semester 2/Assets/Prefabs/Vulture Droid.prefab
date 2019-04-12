@@ -50,10 +50,10 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   mass: 1
-  damping: 0.01
+  damping: 0.5
   banking: 0.1
-  maxSpeed: 5
-  maxForce: 10
+  maxSpeed: 100
+  maxForce: 100
   currentSpeed: 0
   camera: 0
   cameraTarget: {fileID: 0}
