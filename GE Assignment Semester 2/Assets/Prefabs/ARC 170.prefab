@@ -18295,6 +18295,7 @@ GameObject:
   - component: {fileID: 2106570658}
   - component: {fileID: 3362673328017583111}
   - component: {fileID: 4645536254161933107}
+  - component: {fileID: 385591316818931573}
   m_Layer: 0
   m_Name: ARC 170
   m_TagString: Untagged
@@ -18428,6 +18429,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updatesPerSecond: 5
+--- !u!65 &385591316818931573
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357987113265731692}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1587714, y: 0.21563752, z: 0.68864685}
+  m_Center: {x: 0.0010297621, y: 0.0573231, z: -0.07938491}
 --- !u!1 &2363588407738613277
 GameObject:
   m_ObjectHideFlags: 0
