@@ -7226,7 +7226,17 @@ ModelImporter:
     4302134: ID8551
     4302136: ID8559
     4302138: ID8567
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: __auto_
+    second: {fileID: 2100000, guid: 6e9dbe6c4308bf249a65d2531e9e54bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: __auto_1
+    second: {fileID: 2100000, guid: c66a4658c9c1ece45b84c5cb6277c220, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
