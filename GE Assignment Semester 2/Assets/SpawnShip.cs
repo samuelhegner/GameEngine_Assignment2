@@ -23,7 +23,7 @@ public class SpawnShip : MonoBehaviour
 
             if (usePool)
             {
-                Object_Pool.Instance.SpawnFromPool(poolString, transform.position, Quaternion.identity);
+                Object_Pool.Instance.SpawnFromPool(poolString, transform.position, transform.rotation);
             }
             else if(ship != null) {
                 Instantiate(ship, transform.position, Quaternion.identity);

@@ -125,7 +125,10 @@ public class Arc170Controller : MonoBehaviour
 
     public bool leader;
 
+
     public int formationNumber;
+
+    
 
     void Awake()
     {
@@ -174,4 +177,6 @@ public class Arc170Controller : MonoBehaviour
             }
         }
     }
+
+    
 }
