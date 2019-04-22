@@ -49,11 +49,13 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   mass: 1
-  damping: 0.1
-  banking: 0.05
-  maxSpeed: 50
-  maxForce: 50
+  damping: 0.5
+  banking: 0.1
+  maxSpeed: 60
+  maxForce: 100
   currentSpeed: 0
+  camera: 0
+  cameraTarget: {fileID: 0}
 --- !u!114 &1319083666544580507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,6 +72,10 @@ MonoBehaviour:
   force: {x: 0, y: 0, z: 0}
   boid: {fileID: 0}
   leader: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
+  sideDistance: 0
+  bottomDistance: 0
+  slowingDistance: 125
 --- !u!1001 &2642436420779423834
 PrefabInstance:
   m_ObjectHideFlags: 0

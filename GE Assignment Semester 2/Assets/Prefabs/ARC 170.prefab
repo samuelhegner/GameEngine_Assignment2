@@ -18351,9 +18351,11 @@ GameObject:
   - component: {fileID: 1492971283507248037}
   - component: {fileID: 2091762485}
   - component: {fileID: 2870844563819708603}
-  - component: {fileID: 5894014852240554610}
+  - component: {fileID: 7439184382286975018}
+  - component: {fileID: 6688655613538695370}
   - component: {fileID: 6904517785863870339}
   - component: {fileID: 2106570658}
+  - component: {fileID: 9159356149326644890}
   - component: {fileID: 3362673328017583111}
   - component: {fileID: 4645536254161933107}
   - component: {fileID: 385591316818931573}
@@ -18420,17 +18422,17 @@ MonoBehaviour:
   weight: 1
   force: {x: 0, y: 0, z: 0}
   boid: {fileID: 0}
-  scale: 4
-  forwardFeelerDepth: 30
-  sideFeelerDepth: 15
+  scale: 3
+  forwardFeelerDepth: 200
+  sideFeelerDepth: 100
   frontFeelerUpdatesPerSecond: 10
   sideFeelerUpdatesPerSecond: 5
   feelerRadius: 2
-  forceType: 0
+  forceType: 1
   mask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5894014852240554610
+--- !u!114 &7439184382286975018
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -18439,15 +18441,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 2357987113265731692}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e5ca904e54c00c47a421583d16c637e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bb49473e03d20040b7ca49e0521bce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 1
   force: {x: 0, y: 0, z: 0}
   boid: {fileID: 0}
-  distance: 15
-  radius: 10
-  jitter: 100
+  frequency: 0.1
+  radius: 40
+  theta: 0
+  amplitude: 180
+  distance: 80
+  axis: 1
+--- !u!114 &6688655613538695370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357987113265731692}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb49473e03d20040b7ca49e0521bce5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  force: {x: 0, y: 0, z: 0}
+  boid: {fileID: 0}
+  frequency: 0.1
+  radius: 50
+  theta: 0
+  amplitude: 360
+  distance: 80
+  axis: 0
 --- !u!114 &6904517785863870339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18484,6 +18510,24 @@ MonoBehaviour:
   force: {x: 0, y: 0, z: 0}
   boid: {fileID: 0}
   target: {fileID: 0}
+--- !u!114 &9159356149326644890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357987113265731692}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13836386924056c4496af12f8aefad61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  force: {x: 0, y: 0, z: 0}
+  boid: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  slowingDistance: 125
+  targetGameObject: {fileID: 0}
 --- !u!114 &3362673328017583111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18498,7 +18542,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allyNeedsHelp: {fileID: 0}
   enemyToChase: {fileID: 0}
+  enemyChasing: {fileID: 0}
   leader: 1
+  needsHelp: 0
+  busy: 0
+  pursueDistance: 500
   formationNumber: 0
 --- !u!114 &4645536254161933107
 MonoBehaviour:
@@ -18507,7 +18555,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2357987113265731692}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e437762c4035fd4ebb23cc6ad548868, type: 3}
   m_Name: 
@@ -18545,7 +18593,7 @@ MonoBehaviour:
   shotsPerSecond: 5
   updateShootPerSecond: 1
   radiusOfSphereCast: 12
-  maxSphereCastDistance: 350
+  maxSphereCastDistance: 500
   bullet: {fileID: 7070700195631521896, guid: 40d96df5e74dcaf4ab4e59b385a1c134, type: 3}
 --- !u!1 &2363588407738613277
 GameObject:

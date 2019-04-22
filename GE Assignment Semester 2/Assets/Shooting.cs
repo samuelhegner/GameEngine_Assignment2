@@ -17,6 +17,8 @@ public class Shooting : MonoBehaviour
 
     public GameObject bullet;
 
+    public Arc170Controller controller;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,12 +32,23 @@ public class Shooting : MonoBehaviour
 
         StartCoroutine(CheckShoot());
         StartCoroutine(Shoot());
+
+        if (GetComponent<Arc170Controller>()) {
+            controller = GetComponent<Arc170Controller>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (controller != null && shoot && controller.enemyToChase != null)
+        {
+            foreach (GameObject cannon in cannons)
+            {
+                print("test");
+                cannon.transform.LookAt(controller.enemyToChase.transform.position);
+            }
+        }
     }
 
     IEnumerator Shoot()

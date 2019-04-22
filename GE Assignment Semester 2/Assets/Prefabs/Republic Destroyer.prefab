@@ -731,7 +731,7 @@ GameObject:
   - component: {fileID: 7864220860721246454}
   m_Layer: 0
   m_Name: Republic Destroyer
-  m_TagString: Untagged
+  m_TagString: Republic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1093,7 +1093,7 @@ GameObject:
   - component: {fileID: 2719894505048236239}
   m_Layer: 0
   m_Name: rep_venator_body0_model0
-  m_TagString: Untagged
+  m_TagString: Republic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

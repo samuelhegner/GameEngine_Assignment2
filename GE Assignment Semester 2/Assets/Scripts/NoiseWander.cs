@@ -68,4 +68,9 @@ public class NoiseWander : SteeringBehaviour
 
 
     }
+
+    private void Start()
+    {
+        theta = Random.Range(0, 100f);
+    }
 }
