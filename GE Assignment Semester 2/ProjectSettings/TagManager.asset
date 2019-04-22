@@ -8,6 +8,7 @@ TagManager:
   - Republic
   - Confederation
   - Bullet
+  - Manager
   layers:
   - Default
   - TransparentFX

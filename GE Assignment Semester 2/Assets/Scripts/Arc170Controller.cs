@@ -5,10 +5,12 @@ using UnityEngine;
 class LeadAlliesR : State
 {
     Pursue pursue;
+    Arc170Controller controller;
 
 
     public override void Enter()
     {
+        controller = owner.GetComponent<Arc170Controller>();
         pursue = owner.GetComponent<Pursue>();
         pursue.target = GameObject.Find("Target").GetComponent<Boid>();
         pursue.enabled = true;
@@ -16,7 +18,13 @@ class LeadAlliesR : State
 
     public override void Think()
     {
+        if (controller.enemyToChase != null) {
+            pursue.target = controller.enemyToChase;
+        }
 
+        if (CurrentShips.enemyNumber > 0) {
+            controller.enemyToChase = CurrentShips.instance.enemyShips[0].GetComponent<Boid>();
+        }
     }
 
     public override void Exit()
@@ -50,6 +58,7 @@ class FormationApproachR : State
 
         offsetPursue.enabled = true;
 
+        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed + 20f;
     }
 
     public override void Think()
@@ -58,7 +67,7 @@ class FormationApproachR : State
 
     public override void Exit()
     {
-
+        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed - 20f;
     }
 }
 
@@ -100,9 +109,12 @@ class HelpAllyR : State
 
 class ShakeEnemyR : State
 {
+    JitterWander wander;
+
     public override void Enter()
     {
-
+        wander = owner.GetComponent<JitterWander>();
+        wander.enabled = true;
     }
 
     public override void Think()
@@ -125,13 +137,12 @@ public class Arc170Controller : MonoBehaviour
 
     public bool leader;
 
-
     public int formationNumber;
-
-    
 
     void Awake()
     {
+        CurrentShips.AddAlly(gameObject);
+        transform.parent = GameObject.FindGameObjectWithTag("Manager").transform;
         stateMachine = GetComponent<StateMachine>();
         if (leader) {
             List<Arc170Controller> allies = new List<Arc170Controller>();
@@ -178,5 +189,8 @@ public class Arc170Controller : MonoBehaviour
         }
     }
 
-    
+    void OnDestroy()
+    {
+        CurrentShips.RemoveAlly(gameObject);
+    }
 }

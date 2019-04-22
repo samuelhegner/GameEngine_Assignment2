@@ -8,7 +8,7 @@ public class SpawnShip : MonoBehaviour
 
     public string poolString;
 
-    public bool usePool;
+    public bool ally;
 
     public GameObject ship;
 
@@ -21,12 +21,20 @@ public class SpawnShip : MonoBehaviour
         while (true){
             yield return new WaitForSeconds(1f / spawnRatePerSecond);
 
-            if (usePool)
-            {
-                Object_Pool.Instance.SpawnFromPool(poolString, transform.position, transform.rotation);
-            }
-            else if(ship != null) {
-                Instantiate(ship, transform.position, Quaternion.identity);
+            if(ship != null) {
+                if (ally)
+                {
+                    if (CurrentShips.allyNumber < CurrentShips.instance.numberOfShipsPerSide)
+                    {
+                        Instantiate(ship, transform.position, Quaternion.identity);
+                    }
+                }
+                else {
+                    if (CurrentShips.enemyNumber < CurrentShips.instance.numberOfShipsPerSide)
+                    {
+                        Instantiate(ship, transform.position, Quaternion.identity);
+                    }
+                }
             }
         }
     }
