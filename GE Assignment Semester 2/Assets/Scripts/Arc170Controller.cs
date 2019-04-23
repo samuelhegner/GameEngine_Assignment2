@@ -320,6 +320,11 @@ class AllocateStateR : State
         owner.GetComponent<Constrain>().enabled = true;
         controller = owner.GetComponent<Arc170Controller>();
         controller.busy = false;
+
+        controller.enemyToChase = null;
+        controller.allyNeedsHelp = null;
+        controller.enemyChasing = null;
+
         enemies = CurrentShips.instance.enemyShips;
         allies = CurrentShips.instance.allyShips;
 
@@ -350,17 +355,25 @@ class AllocateStateR : State
         {
             controller.enemyToChase = newEnemy.GetComponent<Boid>();
 
-            newEnemy.GetComponent<StateMachine>().CancelDelayedStateChange();
             newEnemy.GetComponent<VultureController>().enemyChasing = owner.GetComponent<Boid>();
+            newEnemy.GetComponent<VultureController>().enemyToChase = null;
+            newEnemy.GetComponent<VultureController>().allyNeedsHelp = null;
             newEnemy.GetComponent<StateMachine>().ChangeState(new ShakeEnemyV());
+            newEnemy.GetComponent<StateMachine>().CancelDelayedStateChange();
+
 
             owner.ChangeState(new ChaseDownR());
         }
         else if (newAlly != null)
         {
             controller.allyNeedsHelp = newAlly.GetComponent<Boid>();
+
+            controller.allyNeedsHelp.GetComponent<Arc170Controller>().allyNeedsHelp = null;
+            controller.allyNeedsHelp.GetComponent<Arc170Controller>().enemyToChase = null;
+
             controller.enemyToChase = controller.allyNeedsHelp.GetComponent<Arc170Controller>().enemyChasing;
             controller.enemyToChase.GetComponent<VultureController>().enemyChasing = owner.GetComponent<Boid>();
+            controller.enemyToChase.GetComponent<VultureController>().allyNeedsHelp = null;
             owner.ChangeState(new HelpAllyR());
         }
         else if(newAlly == null && newEnemy == null)
@@ -391,6 +404,8 @@ public class Arc170Controller : MonoBehaviour
 
 
     public float pursueDistance;
+
+    public string currentState;
 
 
 
@@ -438,6 +453,7 @@ public class Arc170Controller : MonoBehaviour
 
     void Update()
     {
+        currentState = stateMachine.currentState.ToString();
     }
 
     void AssignSquad(Arc170Controller[] allies)

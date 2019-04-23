@@ -80,6 +80,7 @@ class ApproachEnemyV : State
     public override void Enter()
     {
         controller = owner.GetComponent<VultureController>();
+        controller.busy = false;
         seek = owner.GetComponent<Seek>();
 
         int ran = Random.Range(0, CurrentShips.enemyNumber);
@@ -228,6 +229,11 @@ class AllocateStateV : State
     {
         controller = owner.GetComponent<VultureController>();
         controller.busy = false;
+
+        controller.enemyToChase = null;
+        controller.allyNeedsHelp = null;
+        controller.enemyChasing = null;
+
         enemies = CurrentShips.instance.allyShips;
         allies = CurrentShips.instance.enemyShips;
 
@@ -258,9 +264,11 @@ class AllocateStateV : State
         {
             controller.enemyToChase = newEnemy.GetComponent<Boid>();
 
-            newEnemy.GetComponent<StateMachine>().CancelDelayedStateChange();
             newEnemy.GetComponent<Arc170Controller>().enemyChasing = owner.GetComponent<Boid>();
+            newEnemy.GetComponent<Arc170Controller>().enemyToChase = null;
+            newEnemy.GetComponent<Arc170Controller>().allyNeedsHelp = null;
             newEnemy.GetComponent<StateMachine>().ChangeState(new ShakeEnemyR());
+            newEnemy.GetComponent<StateMachine>().CancelDelayedStateChange();
 
 
             owner.ChangeState(new ChaseDownV());
@@ -268,8 +276,13 @@ class AllocateStateV : State
         else if (newAlly != null)
         {
             controller.allyNeedsHelp = newAlly.GetComponent<Boid>();
+
+            controller.allyNeedsHelp.GetComponent<VultureController>().allyNeedsHelp = null;
+            controller.allyNeedsHelp.GetComponent<VultureController>().enemyToChase = null;
+
             controller.enemyToChase = controller.allyNeedsHelp.GetComponent<VultureController>().enemyChasing;
             controller.enemyToChase.GetComponent<Arc170Controller>().enemyChasing = owner.GetComponent<Boid>();
+            controller.enemyToChase.GetComponent<Arc170Controller>().allyNeedsHelp = null;
             owner.ChangeState(new HelpAllyV());
         }
         else if (newAlly == null && newEnemy == null)
@@ -300,7 +313,7 @@ class WaitWanderV : State
         }
         controller = owner.GetComponent<VultureController>();
         controller.busy = false;
-        owner.ChangeStateDelayed(new AllocateStateV(), 5f);
+        owner.ChangeStateDelayed(new AllocateStateV(), 2f);
     }
 
     public override void Think()
@@ -333,6 +346,8 @@ public class VultureController : MonoBehaviour
 
     public float pursueDistance;
 
+    public string currentState;
+
 
 
     void Awake()
@@ -353,7 +368,7 @@ public class VultureController : MonoBehaviour
 
     void Update()
     {
-
+        currentState = stateMachine.currentState.ToString();
     }
 
     void OnDestroy()
