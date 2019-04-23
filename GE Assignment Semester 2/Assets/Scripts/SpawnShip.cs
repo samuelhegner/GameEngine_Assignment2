@@ -29,6 +29,7 @@ public class SpawnShip : MonoBehaviour
                     {
                         GameObject newShip = Instantiate(ship, transform.position, Quaternion.identity);
                         newShip.GetComponent<Arc170Controller>().leader = false;
+                        newShip.GetComponent<Constrain>().radius = CurrentShips.instance.constrainDistance;
                     }
                 }
                 else {

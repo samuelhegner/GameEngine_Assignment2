@@ -137,20 +137,25 @@ class ChaseDownR : State
 
     public override void Think()
     {
-        if (controller.enemyToChase == null)
+        if (controller.enemyToChase == null && controller.enemyChasing != null)
         {
-           owner.ChangeState(new AllocateStateR());
+            owner.ChangeState(new ShakeEnemyR());
         }
-
-        if (Vector3.Distance(owner.transform.position, controller.enemyToChase.transform.position) > controller.pursueDistance)
+        else if (controller.enemyToChase == null && controller.enemyChasing == null)
         {
-            pursue.enabled = true;
-            arrive.enabled = false;
+            owner.ChangeState(new AllocateStateR());
         }
-        else
-        {
-            pursue.enabled = false;
-            arrive.enabled = true;
+        else {
+            if (Vector3.Distance(owner.transform.position, controller.enemyToChase.transform.position) > controller.pursueDistance)
+            {
+                pursue.enabled = true;
+                arrive.enabled = false;
+            }
+            else
+            {
+                pursue.enabled = false;
+                arrive.enabled = true;
+            }
         }
     }
 
@@ -198,14 +203,15 @@ class HelpAllyR : State
 
     public override void Think()
     {
-        if (enemy == null)
-        {
-            owner.ChangeState(new AllocateStateR());
-        }
-        else if (controller.allyNeedsHelp == null)
+        if (controller.allyNeedsHelp == null)
         {
             controller.enemyToChase = enemy;
             owner.ChangeState(new ChaseDownR());
+        }
+        else if (enemy == null)
+        {
+            controller.allyNeedsHelp = null;
+            owner.ChangeState(new AllocateStateR());           
         }
         else {
             if (Vector3.Distance(owner.transform.position, enemy.transform.position) > controller.pursueDistance)
@@ -271,7 +277,7 @@ class ShakeEnemyR : State
 
 class WaitWanderR : State
 {
-
+    
     NoiseWander[] wanders;
     Arc170Controller controller;
 
@@ -283,7 +289,7 @@ class WaitWanderR : State
             wander.enabled = true;
         }
         controller = owner.GetComponent<Arc170Controller>();
-
+        controller.busy = false;
         owner.ChangeStateDelayed(new AllocateStateR(), 5f);
     }
 
@@ -311,7 +317,9 @@ class AllocateStateR : State
 
     public override void Enter()
     {
+        owner.GetComponent<Constrain>().enabled = true;
         controller = owner.GetComponent<Arc170Controller>();
+        controller.busy = false;
         enemies = CurrentShips.instance.enemyShips;
         allies = CurrentShips.instance.allyShips;
 
@@ -321,15 +329,18 @@ class AllocateStateR : State
 
         for (int i = 0; i < enemies.Count; i++)
         {
-            if (!enemies[i].GetComponent<VultureController>().busy)
-            {
-                newEnemy = enemies[i];
+            if (enemies[i] != null) {
+                if (!enemies[i].GetComponent<VultureController>().busy)
+                {
+                    newEnemy = enemies[i];
+                }
             }
+            
         }
 
         for (int i = 0; i < allies.Count; i++)
         {
-            if (allies[i].GetComponent<Arc170Controller>().needsHelp)
+            if (allies[i].GetComponent<Arc170Controller>().needsHelp && allies[i].GetComponent<Arc170Controller>().enemyChasing.GetComponent<VultureController>().enemyChasing == null)
             {
                 newAlly = allies[i];
             }
@@ -339,8 +350,8 @@ class AllocateStateR : State
         {
             controller.enemyToChase = newEnemy.GetComponent<Boid>();
 
-            newEnemy.GetComponent<VultureController>().enemyChasing = owner.GetComponent<Boid>();
             newEnemy.GetComponent<StateMachine>().CancelDelayedStateChange();
+            newEnemy.GetComponent<VultureController>().enemyChasing = owner.GetComponent<Boid>();
             newEnemy.GetComponent<StateMachine>().ChangeState(new ShakeEnemyV());
 
             owner.ChangeState(new ChaseDownR());
@@ -349,6 +360,7 @@ class AllocateStateR : State
         {
             controller.allyNeedsHelp = newAlly.GetComponent<Boid>();
             controller.enemyToChase = controller.allyNeedsHelp.GetComponent<Arc170Controller>().enemyChasing;
+            controller.enemyToChase.GetComponent<VultureController>().enemyChasing = owner.GetComponent<Boid>();
             owner.ChangeState(new HelpAllyR());
         }
         else if(newAlly == null && newEnemy == null)

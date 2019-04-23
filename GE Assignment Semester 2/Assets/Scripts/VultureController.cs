@@ -31,27 +31,34 @@ class ChaseDownV : State
             owner.ChangeState(new WaitWanderV());
         }
 
-        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed + 20f;
+        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed + 10f;
 
     }
 
     public override void Think()
     {
-        if (controller.enemyToChase == null)
+        if (controller.enemyToChase == null && controller.enemyChasing != null)
+        {
+            owner.ChangeState(new ShakeEnemyV());
+        }
+        else if (controller.enemyToChase == null && controller.enemyChasing == null)
         {
             owner.ChangeState(new AllocateStateV());
         }
+        else {
+            if (Vector3.Distance(owner.transform.position, controller.enemyToChase.transform.position) > controller.pursueDistance)
+            {
+                pursue.enabled = true;
+                arrive.enabled = false;
+            }
+            else
+            {
+                pursue.enabled = false;
+                arrive.enabled = true;
+            }
+        }
 
-        if (Vector3.Distance(owner.transform.position, controller.enemyToChase.transform.position) > controller.pursueDistance)
-        {
-            pursue.enabled = true;
-            arrive.enabled = false;
-        }
-        else
-        {
-            pursue.enabled = false;
-            arrive.enabled = true;
-        }
+        
     }
 
     public override void Exit()
@@ -61,8 +68,7 @@ class ChaseDownV : State
         owner.GetComponent<VultureController>().enemyToChase = null;
 
         controller.busy = false;
-
-        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed - 20f;
+        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed - 10f;
     }
 }
 
@@ -131,19 +137,20 @@ class HelpAllyV : State
             owner.ChangeState(new WaitWanderV());
         }
 
-        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed + 20f;
+        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed + 10f;
     }
 
     public override void Think()
     {
-        if (enemy == null)
-        {
-            owner.ChangeState(new AllocateStateV());
-        }
-        else if (controller.allyNeedsHelp == null)
+        if (controller.allyNeedsHelp == null)
         {
             controller.enemyToChase = enemy;
             owner.ChangeState(new ChaseDownV());
+        }
+        else if (enemy == null)
+        {
+            controller.allyNeedsHelp = null;
+            owner.ChangeState(new AllocateStateV());
         }
 
         if (Vector3.Distance(owner.transform.position, enemy.transform.position) > controller.pursueDistance)
@@ -166,7 +173,7 @@ class HelpAllyV : State
 
         controller.busy = false;
 
-        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed - 20f;
+        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed - 10f;
     }
 }
 
@@ -191,7 +198,7 @@ class ShakeEnemyV : State
     {
         if (controller.enemyChasing == null)
         {
-            owner.ChangeStateDelayed(new AllocateStateV(), 5f);
+            owner.ChangeState(new AllocateStateV());
         }
     }
 
@@ -209,6 +216,7 @@ class ShakeEnemyV : State
 
 class AllocateStateV : State
 {
+
     VultureController controller;
 
     List<GameObject> enemies;
@@ -219,6 +227,7 @@ class AllocateStateV : State
     public override void Enter()
     {
         controller = owner.GetComponent<VultureController>();
+        controller.busy = false;
         enemies = CurrentShips.instance.allyShips;
         allies = CurrentShips.instance.enemyShips;
 
@@ -228,15 +237,18 @@ class AllocateStateV : State
 
         for (int i = 0; i < enemies.Count; i++)
         {
-            if (!enemies[i].GetComponent<Arc170Controller>().busy)
+            if (enemies[i] != null)
             {
-                newEnemy = enemies[i];
+                if (!enemies[i].GetComponent<Arc170Controller>().busy)
+                {
+                    newEnemy = enemies[i];
+                }
             }
         }
 
         for (int i = 0; i < allies.Count; i++)
         {
-            if (allies[i].GetComponent<VultureController>().needsHelp)
+            if (allies[i].GetComponent<VultureController>().needsHelp && allies[i].GetComponent<VultureController>().enemyChasing.GetComponent<Arc170Controller>().enemyChasing == null)
             {
                 newAlly = allies[i];
             }
@@ -246,9 +258,8 @@ class AllocateStateV : State
         {
             controller.enemyToChase = newEnemy.GetComponent<Boid>();
 
-
-            newEnemy.GetComponent<Arc170Controller>().enemyChasing = owner.GetComponent<Boid>();
             newEnemy.GetComponent<StateMachine>().CancelDelayedStateChange();
+            newEnemy.GetComponent<Arc170Controller>().enemyChasing = owner.GetComponent<Boid>();
             newEnemy.GetComponent<StateMachine>().ChangeState(new ShakeEnemyR());
 
 
@@ -258,6 +269,7 @@ class AllocateStateV : State
         {
             controller.allyNeedsHelp = newAlly.GetComponent<Boid>();
             controller.enemyToChase = controller.allyNeedsHelp.GetComponent<VultureController>().enemyChasing;
+            controller.enemyToChase.GetComponent<Arc170Controller>().enemyChasing = owner.GetComponent<Boid>();
             owner.ChangeState(new HelpAllyV());
         }
         else if (newAlly == null && newEnemy == null)
@@ -287,7 +299,7 @@ class WaitWanderV : State
             wander.enabled = true;
         }
         controller = owner.GetComponent<VultureController>();
-
+        controller.busy = false;
         owner.ChangeStateDelayed(new AllocateStateV(), 5f);
     }
 
