@@ -46,6 +46,11 @@ class LeadAlliesR : State
     {
         controller.leader = false;
         pursue.enabled = false;
+
+        owner.GetComponent<Constrain>().centerObject = GameObject.Find("Anakin");
+
+        owner.GetComponent<Constrain>().radius = CurrentShips.instance.constrainDistance;
+        owner.GetComponent<Constrain>().enabled = true;
     }
 }
 
@@ -90,6 +95,11 @@ class FormationApproachR : State
     {
         owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed - 20f;
         offsetPursue.enabled = false;
+
+        owner.GetComponent<Constrain>().centerObject = GameObject.Find("Anakin");
+        owner.GetComponent<Constrain>().radius = CurrentShips.instance.constrainDistance;
+
+        owner.GetComponent<Constrain>().enabled = true;
     }
 }
 
@@ -376,6 +386,7 @@ public class Arc170Controller : MonoBehaviour
 
     void Awake()
     {
+        GetComponent<Constrain>().centerObject = GameObject.Find("Anakin");
         transform.parent = GameObject.FindGameObjectWithTag("Manager").transform;
         stateMachine = GetComponent<StateMachine>();
         if (leader)

@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 5563341900883209032}
   - component: {fileID: 1560515153022888255}
   - component: {fileID: 4375706999629063244}
+  - component: {fileID: 5506795611815026611}
   - component: {fileID: 453969788751062627}
   - component: {fileID: 6520840270000264717}
   - component: {fileID: 8513078473887772417}
@@ -162,6 +163,7 @@ MonoBehaviour:
   radiusOfSphereCast: 12
   maxSphereCastDistance: 500
   bullet: {fileID: 4669901669618381764, guid: b5b127a0363cfdd4c8fd0e7fe135706a, type: 3}
+  controller: {fileID: 0}
 --- !u!114 &4375706999629063244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +189,23 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5506795611815026611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560515153022888254}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0d51db917fd4e43b5a3798bdfc6793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  force: {x: 0, y: 0, z: 0}
+  boid: {fileID: 0}
+  centerObject: {fileID: 0}
+  radius: 0
 --- !u!114 &453969788751062627
 MonoBehaviour:
   m_ObjectHideFlags: 0

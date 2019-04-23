@@ -96,6 +96,11 @@ class ApproachEnemyV : State
     public override void Exit()
     {
         seek.enabled = false;
+
+        owner.GetComponent<Constrain>().centerObject = GameObject.Find("Anakin");
+        owner.GetComponent<Constrain>().radius = CurrentShips.instance.constrainDistance;
+        
+        owner.GetComponent<Constrain>().enabled = true;
     }
 }
 
@@ -323,6 +328,7 @@ public class VultureController : MonoBehaviour
 
     void Awake()
     {
+        GetComponent<Constrain>().centerObject = GameObject.Find("Anakin");
         CurrentShips.AddEnemy(gameObject);
         transform.parent = GameObject.FindGameObjectWithTag("Manager").transform;
 

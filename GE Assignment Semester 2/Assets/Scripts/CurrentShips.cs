@@ -13,6 +13,8 @@ public class CurrentShips : MonoBehaviour
 
     public int numberOfShipsPerSide = 20;
 
+    public float constrainDistance;
+
 
     void Awake()
     {
