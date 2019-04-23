@@ -18349,7 +18349,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1492971283507248037}
-  - component: {fileID: 2091762485}
   - component: {fileID: 2870844563819708603}
   - component: {fileID: 7816574477409109276}
   - component: {fileID: 7439184382286975018}
@@ -18357,10 +18356,12 @@ GameObject:
   - component: {fileID: 6904517785863870339}
   - component: {fileID: 2106570658}
   - component: {fileID: 9159356149326644890}
+  - component: {fileID: 2091762485}
   - component: {fileID: 3362673328017583111}
   - component: {fileID: 4645536254161933107}
   - component: {fileID: 385591316818931573}
   - component: {fileID: 2357987113265731693}
+  - component: {fileID: 3112256812936249892}
   m_Layer: 9
   m_Name: ARC 170
   m_TagString: Republic
@@ -18385,29 +18386,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2091762485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2357987113265731692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c18821c55ffeda4abba6acda3291faa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  force: {x: 0, y: 0, z: 0}
-  acceleration: {x: 0, y: 0, z: 0}
-  velocity: {x: 0, y: 0, z: 0}
-  mass: 1
-  damping: 0.5
-  banking: 0.1
-  maxSpeed: 100
-  maxForce: 100
-  currentSpeed: 0
-  camera: 0
-  cameraTarget: {fileID: 0}
 --- !u!114 &2870844563819708603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18546,6 +18524,29 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   slowingDistance: 125
   targetGameObject: {fileID: 0}
+--- !u!114 &2091762485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357987113265731692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c18821c55ffeda4abba6acda3291faa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  force: {x: 0, y: 0, z: 0}
+  acceleration: {x: 0, y: 0, z: 0}
+  velocity: {x: 0, y: 0, z: 0}
+  mass: 1
+  damping: 0.5
+  banking: 0.1
+  maxSpeed: 100
+  maxForce: 100
+  currentSpeed: 0
+  camera: 0
+  cameraTarget: {fileID: 0}
 --- !u!114 &3362673328017583111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18573,7 +18574,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2357987113265731692}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e437762c4035fd4ebb23cc6ad548868, type: 3}
   m_Name: 
@@ -18614,6 +18615,19 @@ MonoBehaviour:
   maxSphereCastDistance: 500
   bullet: {fileID: 7070700195631521896, guid: 40d96df5e74dcaf4ab4e59b385a1c134, type: 3}
   controller: {fileID: 0}
+--- !u!114 &3112256812936249892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357987113265731692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c93e5e3bb373a42a0015b6f9a6bdb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startHealth: 10
 --- !u!1 &2363588407738613277
 GameObject:
   m_ObjectHideFlags: 0

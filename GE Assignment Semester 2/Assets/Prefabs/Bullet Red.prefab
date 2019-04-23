@@ -212,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 250
   parent: {fileID: 0}
+  bulletDamage: 1
 --- !u!54 &7436327505565621688
 Rigidbody:
   m_ObjectHideFlags: 0

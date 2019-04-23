@@ -8,8 +8,6 @@ class ChaseDownV : State
 
     Arrive arrive;
 
-    Boid enemy;
-
     VultureController controller;
 
     public override void Enter()
@@ -20,7 +18,6 @@ class ChaseDownV : State
 
         pursue = owner.GetComponent<Pursue>();
         arrive = owner.GetComponent<Arrive>();
-        enemy = controller.enemyToChase;
 
         if (controller.enemyToChase != null)
         {
@@ -45,7 +42,7 @@ class ChaseDownV : State
             owner.ChangeState(new AllocateStateV());
         }
 
-        if (Vector3.Distance(owner.transform.position, enemy.transform.position) > controller.pursueDistance)
+        if (Vector3.Distance(owner.transform.position, controller.enemyToChase.transform.position) > controller.pursueDistance)
         {
             pursue.enabled = true;
             arrive.enabled = false;
@@ -165,7 +162,7 @@ class HelpAllyV : State
     {
         pursue.enabled = false;
         arrive.enabled = false;
-        owner.GetComponent<Arc170Controller>().allyNeedsHelp = null;
+        owner.GetComponent<VultureController>().allyNeedsHelp = null;
 
         controller.busy = false;
 

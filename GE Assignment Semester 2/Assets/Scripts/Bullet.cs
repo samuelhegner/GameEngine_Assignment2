@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
 
     public GameObject parent;
 
+    public int bulletDamage;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,13 +25,13 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject != parent)
-        DestroySelf();
-    }
+        if (other.gameObject != parent) {
+            if (other.GetComponent<Health>()) {
+                other.GetComponent<Health>().RemoveHealth(bulletDamage);
+            }
 
-    void TurnOnCol()
-    {
-        GetComponent<BoxCollider>().enabled = true;
+            DestroySelf();
+        }
     }
 
     void DestroySelf()
