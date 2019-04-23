@@ -99,8 +99,6 @@ class ChaseDownR : State
 
     Arrive arrive;
 
-    Boid enemy;
-
     Arc170Controller controller;
 
     public override void Enter()
@@ -111,23 +109,30 @@ class ChaseDownR : State
 
         pursue = owner.GetComponent<Pursue>();
         arrive = owner.GetComponent<Arrive>();
-        enemy = controller.enemyToChase;
 
-        pursue.target = enemy;
-        arrive.targetGameObject = enemy.gameObject;
+        if (controller.enemyToChase != null)
+        {
+            pursue.target = controller.enemyToChase;
+            arrive.targetGameObject = controller.enemyToChase.gameObject;
 
-        pursue.enabled = true;
+            pursue.enabled = true;
+        }
+        else
+        {
+            owner.ChangeState(new WaitWanderR());
+        }
         owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed + 10f;
+
     }
 
     public override void Think()
     {
-        if (enemy == null)
+        if (controller.enemyToChase == null)
         {
-            owner.ChangeState(new AllocateStateR());
+           owner.ChangeState(new AllocateStateR());
         }
 
-        if (Vector3.Distance(owner.transform.position, enemy.transform.position) > controller.pursueDistance)
+        if (Vector3.Distance(owner.transform.position, controller.enemyToChase.transform.position) > controller.pursueDistance)
         {
             pursue.enabled = true;
             arrive.enabled = false;
@@ -168,6 +173,17 @@ class HelpAllyR : State
         pursue = owner.GetComponent<Pursue>();
         arrive = owner.GetComponent<Arrive>();
         enemy = controller.allyNeedsHelp.GetComponent<Arc170Controller>().enemyChasing;
+
+        if (enemy != null)
+        {
+            pursue.target = enemy;
+            arrive.targetGameObject = enemy.gameObject;
+            pursue.enabled = true;
+        }
+        else {
+            owner.ChangeState(new WaitWanderR());
+        }
+        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed + 10f;
     }
 
     public override void Think()
@@ -181,16 +197,17 @@ class HelpAllyR : State
             controller.enemyToChase = enemy;
             owner.ChangeState(new ChaseDownR());
         }
-
-        if (Vector3.Distance(owner.transform.position, enemy.transform.position) > controller.pursueDistance)
-        {
-            pursue.enabled = true;
-            arrive.enabled = false;
-        }
-        else
-        {
-            pursue.enabled = false;
-            arrive.enabled = true;
+        else {
+            if (Vector3.Distance(owner.transform.position, enemy.transform.position) > controller.pursueDistance)
+            {
+                pursue.enabled = true;
+                arrive.enabled = false;
+            }
+            else
+            {
+                pursue.enabled = false;
+                arrive.enabled = true;
+            }
         }
     }
 
@@ -201,6 +218,8 @@ class HelpAllyR : State
         owner.GetComponent<Arc170Controller>().allyNeedsHelp = null;
 
         controller.busy = false;
+
+        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed - 10f;
     }
 }
 
@@ -224,7 +243,7 @@ class ShakeEnemyR : State
     {
         if (controller.enemyChasing == null)
         {
-            owner.ChangeStateDelayed(new AllocateStateR(), 5f);
+            owner.ChangeState(new AllocateStateR());
         }
     }
 
@@ -280,8 +299,6 @@ class AllocateStateR : State
     List<GameObject> enemies;
     List<GameObject> allies;
 
-
-
     public override void Enter()
     {
         controller = owner.GetComponent<Arc170Controller>();
@@ -310,20 +327,22 @@ class AllocateStateR : State
 
         if (newEnemy != null)
         {
+            controller.enemyToChase = newEnemy.GetComponent<Boid>();
+
             newEnemy.GetComponent<VultureController>().enemyChasing = owner.GetComponent<Boid>();
             newEnemy.GetComponent<StateMachine>().CancelDelayedStateChange();
             newEnemy.GetComponent<StateMachine>().ChangeState(new ShakeEnemyV());
-
-            controller.enemyToChase = newEnemy.GetComponent<Boid>();
 
             owner.ChangeState(new ChaseDownR());
         }
         else if (newAlly != null)
         {
             controller.allyNeedsHelp = newAlly.GetComponent<Boid>();
+            controller.enemyToChase = controller.allyNeedsHelp.GetComponent<Arc170Controller>().enemyChasing;
             owner.ChangeState(new HelpAllyR());
         }
-        else {
+        else if(newAlly == null && newEnemy == null)
+        {
             owner.ChangeState(new WaitWanderR());
         }
     }
@@ -374,11 +393,15 @@ public class Arc170Controller : MonoBehaviour
 
             AssignSquad(allies.ToArray());
         }
+
+        needsHelp = false;
+        busy = false;
     }
 
     void Start()
     {
         CurrentShips.AddAlly(gameObject);
+        Invoke("SetBehaviour", 0.1f);
 
         if (leader)
         {
@@ -386,9 +409,8 @@ public class Arc170Controller : MonoBehaviour
         }
         else
         {
-            stateMachine.ChangeState(new FormationApproachR());
+            stateMachine.ChangeState(new WaitWanderR());
         }
-        print(stateMachine.currentState);
     }
 
     void Update()
@@ -417,5 +439,28 @@ public class Arc170Controller : MonoBehaviour
     void OnDestroy()
     {
         CurrentShips.RemoveAlly(gameObject);
+    }
+
+    void SetBehaviour() {
+        stateMachine.CancelDelayedStateChange();
+
+        bool leaderLess = true;
+
+        foreach (GameObject ship in CurrentShips.instance.allyShips)
+        {
+            if (ship.GetComponent<Arc170Controller>().leader)
+            {
+                leaderLess = false;
+            }
+        }
+
+        if (leaderLess && !leader)
+        {
+            stateMachine.ChangeState(new AllocateStateR());
+        }
+        else if(!leaderLess && !leader)
+        {
+            stateMachine.ChangeState(new FormationApproachR());
+        }
     }
 }

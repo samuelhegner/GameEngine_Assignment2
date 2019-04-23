@@ -22,17 +22,25 @@ class ChaseDownV : State
         arrive = owner.GetComponent<Arrive>();
         enemy = controller.enemyToChase;
 
-        pursue.target = enemy;
-        arrive.targetGameObject = enemy.gameObject;
+        if (controller.enemyToChase != null)
+        {
+            pursue.target = controller.enemyToChase;
+            arrive.targetGameObject = controller.enemyToChase.gameObject;
 
-        pursue.enabled = true;
+            pursue.enabled = true;
+        }
+        else
+        {
+            owner.ChangeState(new WaitWanderV());
+        }
 
         owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed + 20f;
+
     }
 
     public override void Think()
     {
-        if (enemy == null)
+        if (controller.enemyToChase == null)
         {
             owner.ChangeState(new AllocateStateV());
         }
@@ -53,7 +61,7 @@ class ChaseDownV : State
     {
         pursue.enabled = false;
         arrive.enabled = false;
-        owner.GetComponent<Arc170Controller>().enemyToChase = null;
+        owner.GetComponent<VultureController>().enemyToChase = null;
 
         controller.busy = false;
 
@@ -69,8 +77,6 @@ class ApproachEnemyV : State
     public override void Enter()
     {
         controller = owner.GetComponent<VultureController>();
-        controller.busy = false;
-
         seek = owner.GetComponent<Seek>();
 
         int ran = Random.Range(0, CurrentShips.enemyNumber);
@@ -81,7 +87,8 @@ class ApproachEnemyV : State
 
     public override void Think()
     {
-        if (Vector3.Distance(owner.transform.position, seek.targetGameObject.transform.position) < 500f){
+        if (Vector3.Distance(owner.transform.position, seek.targetGameObject.transform.position) < 500f)
+        {
             owner.ChangeState(new AllocateStateV());
         }
     }
@@ -110,6 +117,19 @@ class HelpAllyV : State
         pursue = owner.GetComponent<Pursue>();
         arrive = owner.GetComponent<Arrive>();
         enemy = controller.allyNeedsHelp.GetComponent<VultureController>().enemyChasing;
+
+        if (enemy != null)
+        {
+            pursue.target = enemy;
+            arrive.targetGameObject = enemy.gameObject;
+            pursue.enabled = true;
+        }
+        else
+        {
+            owner.ChangeState(new WaitWanderV());
+        }
+
+        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed + 20f;
     }
 
     public override void Think()
@@ -143,6 +163,8 @@ class HelpAllyV : State
         owner.GetComponent<Arc170Controller>().allyNeedsHelp = null;
 
         controller.busy = false;
+
+        owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed - 20f;
     }
 }
 
@@ -220,23 +242,27 @@ class AllocateStateV : State
 
         if (newEnemy != null)
         {
+            controller.enemyToChase = newEnemy.GetComponent<Boid>();
+
+
             newEnemy.GetComponent<Arc170Controller>().enemyChasing = owner.GetComponent<Boid>();
             newEnemy.GetComponent<StateMachine>().CancelDelayedStateChange();
             newEnemy.GetComponent<StateMachine>().ChangeState(new ShakeEnemyR());
 
-            controller.enemyToChase = newEnemy.GetComponent<Boid>();
 
             owner.ChangeState(new ChaseDownV());
         }
         else if (newAlly != null)
         {
             controller.allyNeedsHelp = newAlly.GetComponent<Boid>();
+            controller.enemyToChase = controller.allyNeedsHelp.GetComponent<VultureController>().enemyChasing;
             owner.ChangeState(new HelpAllyV());
         }
-        else
+        else if (newAlly == null && newEnemy == null)
         {
             owner.ChangeState(new WaitWanderV());
         }
+
     }
 
     public override void Exit()
@@ -301,6 +327,8 @@ public class VultureController : MonoBehaviour
         transform.parent = GameObject.FindGameObjectWithTag("Manager").transform;
 
         stateMachine = GetComponent<StateMachine>();
+        needsHelp = false;
+        busy = false;
     }
 
     void Start()
@@ -310,7 +338,7 @@ public class VultureController : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     void OnDestroy()

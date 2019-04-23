@@ -18402,7 +18402,7 @@ MonoBehaviour:
   mass: 1
   damping: 0.5
   banking: 0.1
-  maxSpeed: 60
+  maxSpeed: 100
   maxForce: 100
   currentSpeed: 0
   camera: 0
@@ -18595,6 +18595,7 @@ MonoBehaviour:
   radiusOfSphereCast: 12
   maxSphereCastDistance: 500
   bullet: {fileID: 7070700195631521896, guid: 40d96df5e74dcaf4ab4e59b385a1c134, type: 3}
+  controller: {fileID: 0}
 --- !u!1 &2363588407738613277
 GameObject:
   m_ObjectHideFlags: 0

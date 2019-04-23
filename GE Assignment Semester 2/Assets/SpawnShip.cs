@@ -9,6 +9,7 @@ public class SpawnShip : MonoBehaviour
     public string poolString;
 
     public bool ally;
+    public bool spawn;
 
     public GameObject ship;
 
@@ -21,12 +22,13 @@ public class SpawnShip : MonoBehaviour
         while (true){
             yield return new WaitForSeconds(1f / spawnRatePerSecond);
 
-            if(ship != null) {
+            if(ship != null && spawn) {
                 if (ally)
                 {
                     if (CurrentShips.allyNumber < CurrentShips.instance.numberOfShipsPerSide)
                     {
-                        Instantiate(ship, transform.position, Quaternion.identity);
+                        GameObject newShip = Instantiate(ship, transform.position, Quaternion.identity);
+                        newShip.GetComponent<Arc170Controller>().leader = false;
                     }
                 }
                 else {

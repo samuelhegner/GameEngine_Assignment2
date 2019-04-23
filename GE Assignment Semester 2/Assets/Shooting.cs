@@ -45,7 +45,6 @@ public class Shooting : MonoBehaviour
         {
             foreach (GameObject cannon in cannons)
             {
-                print("test");
                 cannon.transform.LookAt(controller.enemyToChase.transform.position);
             }
         }
