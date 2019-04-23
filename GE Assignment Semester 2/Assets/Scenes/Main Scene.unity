@@ -2575,7 +2575,7 @@ MonoBehaviour:
   enemyShips: []
   allyShips: []
   numberOfShipsPerSide: 10
-  constrainDistance: 1500
+  constrainDistance: 2000
 --- !u!1 &1446037357
 GameObject:
   m_ObjectHideFlags: 0
