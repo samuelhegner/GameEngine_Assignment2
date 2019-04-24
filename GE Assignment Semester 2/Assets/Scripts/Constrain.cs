@@ -21,7 +21,7 @@ public class Constrain : SteeringBehaviour
     public override Vector3 Calculate()
     {
         Vector3 force = Vector3.zero;
-        Vector3 toTarget = boid.transform.position - (centerObject.transform.position + centerObject.transform.forward * 500f);
+        Vector3 toTarget = boid.transform.position - (centerObject.transform.position + centerObject.transform.forward * radius);
 
         if (toTarget.magnitude > radius)
         {

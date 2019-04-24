@@ -137,15 +137,23 @@ class ChaseDownR : State
 
     public override void Think()
     {
-        if (controller.enemyToChase == null && controller.enemyChasing != null)
+        if (controller.enemyToChase == null)
         {
-            owner.ChangeState(new ShakeEnemyR());
+            if (controller.enemyChasing != null)
+            {
+                owner.ChangeState(new ShakeEnemyR());
+            }
+            else if (controller.enemyChasing == null)
+            {
+                owner.ChangeState(new AllocateStateR());
+            }
+            else
+            {
+                owner.ChangeState(new AllocateStateR());
+            }
         }
-        else if (controller.enemyToChase == null && controller.enemyChasing == null)
-        {
-            owner.ChangeState(new AllocateStateR());
-        }
-        else {
+
+        if (controller.enemyToChase != null) {
             if (Vector3.Distance(owner.transform.position, controller.enemyToChase.transform.position) > controller.pursueDistance)
             {
                 pursue.enabled = true;
@@ -195,7 +203,8 @@ class HelpAllyR : State
             arrive.targetGameObject = enemy.gameObject;
             pursue.enabled = true;
         }
-        else {
+        else
+        {
             owner.ChangeState(new WaitWanderR());
         }
         owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed + 10f;
@@ -211,9 +220,10 @@ class HelpAllyR : State
         else if (enemy == null)
         {
             controller.allyNeedsHelp = null;
-            owner.ChangeState(new AllocateStateR());           
+            owner.ChangeState(new AllocateStateR());
         }
-        else {
+        else
+        {
             if (Vector3.Distance(owner.transform.position, enemy.transform.position) > controller.pursueDistance)
             {
                 pursue.enabled = true;
@@ -247,7 +257,8 @@ class ShakeEnemyR : State
     public override void Enter()
     {
         wanders = owner.GetComponents<NoiseWander>();
-        foreach (NoiseWander wander in wanders) {
+        foreach (NoiseWander wander in wanders)
+        {
             wander.enabled = true;
         }
         controller = owner.GetComponent<Arc170Controller>();
@@ -277,7 +288,7 @@ class ShakeEnemyR : State
 
 class WaitWanderR : State
 {
-    
+
     NoiseWander[] wanders;
     Arc170Controller controller;
 
@@ -334,18 +345,19 @@ class AllocateStateR : State
 
         for (int i = 0; i < enemies.Count; i++)
         {
-            if (enemies[i] != null) {
+            if (enemies[i] != null)
+            {
                 if (!enemies[i].GetComponent<VultureController>().busy)
                 {
                     newEnemy = enemies[i];
                 }
             }
-            
+
         }
 
         for (int i = 0; i < allies.Count; i++)
         {
-            if (allies[i].GetComponent<Arc170Controller>().needsHelp && allies[i].GetComponent<Arc170Controller>().enemyChasing.GetComponent<VultureController>().enemyChasing == null)
+            if (allies[i].GetComponent<Arc170Controller>().needsHelp && allies[i].GetComponent<Arc170Controller>().enemyChasing != null && allies[i].GetComponent<Arc170Controller>().enemyChasing.GetComponent<VultureController>().enemyChasing == null)
             {
                 newAlly = allies[i];
             }
@@ -376,7 +388,7 @@ class AllocateStateR : State
             controller.enemyToChase.GetComponent<VultureController>().allyNeedsHelp = null;
             owner.ChangeState(new HelpAllyR());
         }
-        else if(newAlly == null && newEnemy == null)
+        else if (newAlly == null && newEnemy == null)
         {
             owner.ChangeState(new WaitWanderR());
         }
@@ -480,7 +492,8 @@ public class Arc170Controller : MonoBehaviour
         CurrentShips.RemoveAlly(gameObject);
     }
 
-    void SetBehaviour() {
+    void SetBehaviour()
+    {
         stateMachine.CancelDelayedStateChange();
 
         bool leaderLess = true;
@@ -497,7 +510,7 @@ public class Arc170Controller : MonoBehaviour
         {
             stateMachine.ChangeState(new AllocateStateR());
         }
-        else if(!leaderLess && !leader)
+        else if (!leaderLess && !leader)
         {
             stateMachine.ChangeState(new FormationApproachR());
         }

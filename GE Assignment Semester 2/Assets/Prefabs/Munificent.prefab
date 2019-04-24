@@ -247,9 +247,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8461790686988024717}
   - component: {fileID: 7750215709662108416}
+  - component: {fileID: 6467553017330396112}
+  - component: {fileID: 8604155098103318943}
+  - component: {fileID: 5020236724986618045}
   m_Layer: 0
   m_Name: Munificent
-  m_TagString: Untagged
+  m_TagString: Confederation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,3 +292,42 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &6467553017330396112
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8228231776952206082}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 150, y: 150, z: 850}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &8604155098103318943
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8228231776952206082}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 46.8, y: 97.6, z: 100}
+  m_Center: {x: 0, y: 102.3, z: 286.6}
+--- !u!65 &5020236724986618045
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8228231776952206082}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 46.8, y: 98.2, z: 100}
+  m_Center: {x: 0, y: 102.3, z: -195.84}

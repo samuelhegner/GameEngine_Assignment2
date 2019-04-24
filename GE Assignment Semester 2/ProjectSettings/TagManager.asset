@@ -9,6 +9,7 @@ TagManager:
   - Confederation
   - Bullet
   - Manager
+  - Bin
   layers:
   - Default
   - TransparentFX

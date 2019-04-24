@@ -32,20 +32,27 @@ class ChaseDownV : State
         }
 
         owner.GetComponent<Boid>().maxSpeed = owner.GetComponent<Boid>().maxSpeed + 10f;
-
     }
 
     public override void Think()
     {
-        if (controller.enemyToChase == null && controller.enemyChasing != null)
+        if (controller.enemyToChase == null)
         {
-            owner.ChangeState(new ShakeEnemyV());
+            if (controller.enemyChasing != null)
+            {
+                owner.ChangeState(new ShakeEnemyV());
+            }
+            else if (controller.enemyChasing == null)
+            {
+                owner.ChangeState(new AllocateStateV());
+            }
+            else {
+                owner.ChangeState(new AllocateStateV());
+            }
         }
-        else if (controller.enemyToChase == null && controller.enemyChasing == null)
+
+        if (controller.enemyToChase != null)
         {
-            owner.ChangeState(new AllocateStateV());
-        }
-        else {
             if (Vector3.Distance(owner.transform.position, controller.enemyToChase.transform.position) > controller.pursueDistance)
             {
                 pursue.enabled = true;
@@ -57,8 +64,6 @@ class ChaseDownV : State
                 arrive.enabled = true;
             }
         }
-
-        
     }
 
     public override void Exit()
@@ -91,7 +96,11 @@ class ApproachEnemyV : State
 
     public override void Think()
     {
-        if (Vector3.Distance(owner.transform.position, seek.targetGameObject.transform.position) < 500f)
+        if (seek.targetGameObject == null)
+        {
+            owner.ChangeState(new AllocateStateV());
+        }
+        else if (Vector3.Distance(owner.transform.position, seek.targetGameObject.transform.position) < 500f)
         {
             owner.ChangeState(new AllocateStateV());
         }
@@ -103,7 +112,7 @@ class ApproachEnemyV : State
 
         owner.GetComponent<Constrain>().centerObject = GameObject.Find("Anakin");
         owner.GetComponent<Constrain>().radius = CurrentShips.instance.constrainDistance;
-        
+
         owner.GetComponent<Constrain>().enabled = true;
     }
 }
@@ -153,16 +162,17 @@ class HelpAllyV : State
             controller.allyNeedsHelp = null;
             owner.ChangeState(new AllocateStateV());
         }
-
-        if (Vector3.Distance(owner.transform.position, enemy.transform.position) > controller.pursueDistance)
-        {
-            pursue.enabled = true;
-            arrive.enabled = false;
-        }
-        else
-        {
-            pursue.enabled = false;
-            arrive.enabled = true;
+        else {
+            if (Vector3.Distance(owner.transform.position, enemy.transform.position) > controller.pursueDistance)
+            {
+                pursue.enabled = true;
+                arrive.enabled = false;
+            }
+            else
+            {
+                pursue.enabled = false;
+                arrive.enabled = true;
+            }
         }
     }
 
@@ -254,7 +264,7 @@ class AllocateStateV : State
 
         for (int i = 0; i < allies.Count; i++)
         {
-            if (allies[i].GetComponent<VultureController>().needsHelp && allies[i].GetComponent<VultureController>().enemyChasing.GetComponent<Arc170Controller>().enemyChasing == null)
+            if (allies[i].GetComponent<VultureController>().needsHelp && allies[i].GetComponent<VultureController>().enemyChasing != null && allies[i].GetComponent<VultureController>().enemyChasing.GetComponent<Arc170Controller>().enemyChasing == null)
             {
                 newAlly = allies[i];
             }
