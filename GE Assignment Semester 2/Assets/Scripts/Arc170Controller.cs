@@ -406,6 +406,8 @@ public class Arc170Controller : MonoBehaviour
     public Boid enemyToChase;
     public Boid enemyChasing;
 
+    public GameObject explosionLarge;
+
     StateMachine stateMachine;
 
     public bool leader;
@@ -489,6 +491,7 @@ public class Arc170Controller : MonoBehaviour
 
     void OnDestroy()
     {
+        Instantiate(explosionLarge, transform.position, Random.rotation);
         CurrentShips.RemoveAlly(gameObject);
     }
 

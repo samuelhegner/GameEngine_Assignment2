@@ -212,6 +212,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 350
   parent: {fileID: 0}
+  explosionSmall: {fileID: 7794993780576697757, guid: d16315bababeff748852b188407a56c4,
+    type: 3}
   bulletDamage: 1
 --- !u!54 &7436327505565621688
 Rigidbody:

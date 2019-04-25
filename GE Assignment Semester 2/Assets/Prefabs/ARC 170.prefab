@@ -16530,7 +16530,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.8
+      scalar: 1.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -23264,6 +23264,8 @@ MonoBehaviour:
   allyNeedsHelp: {fileID: 0}
   enemyToChase: {fileID: 0}
   enemyChasing: {fileID: 0}
+  explosionLarge: {fileID: 196045872528889826, guid: 870d14959f1c2434e95ba82d9ae21742,
+    type: 3}
   leader: 1
   needsHelp: 0
   busy: 0
@@ -23317,6 +23319,7 @@ MonoBehaviour:
   radiusOfSphereCast: 12
   maxSphereCastDistance: 500
   bullet: {fileID: 7070700195631521896, guid: 40d96df5e74dcaf4ab4e59b385a1c134, type: 3}
+  bin: {fileID: 0}
   controller: {fileID: 0}
 --- !u!114 &3112256812936249892
 MonoBehaviour:
@@ -35289,7 +35292,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.8
+      scalar: 1.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2

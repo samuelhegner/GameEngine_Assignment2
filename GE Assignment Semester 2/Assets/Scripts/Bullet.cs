@@ -8,7 +8,11 @@ public class Bullet : MonoBehaviour
 
     public GameObject parent;
 
+    public GameObject explosionSmall;
+
     public int bulletDamage;
+
+
 
 
     // Start is called before the first frame update
@@ -36,6 +40,7 @@ public class Bullet : MonoBehaviour
 
     void DestroySelf()
     {
+        Instantiate(explosionSmall, transform.position, Random.rotation);
         Destroy(gameObject);
     }
 }
