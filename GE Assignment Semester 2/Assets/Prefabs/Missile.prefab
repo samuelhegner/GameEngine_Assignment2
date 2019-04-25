@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 67917135209608928}
   - component: {fileID: 7092504383704870382}
-  - component: {fileID: 1841269715}
   - component: {fileID: 1841269720}
+  - component: {fileID: 1841269714}
+  - component: {fileID: 5226844330495553966}
+  - component: {fileID: 1841269719}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -28,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1181362338766038040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -183.83627, y: 55.85803, z: 16.34692}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 2352678338208609593}
   - {fileID: 505023906629803701}
@@ -59,7 +61,39 @@ MonoBehaviour:
   currentSpeed: 0
   camera: 0
   cameraTarget: {fileID: 0}
---- !u!114 &1841269715
+--- !u!114 &1841269720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181362338766038040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9396d808ab7e5ae4f915513a55ae8a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 0}
+  launch: 0
+  explosionLarge: {fileID: 196045872528889826, guid: 870d14959f1c2434e95ba82d9ae21742,
+    type: 3}
+  buzzDroid: {fileID: 0}
+  numberOfBuzzDroids: 25
+  droids: []
+--- !u!114 &1841269714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181362338766038040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e437762c4035fd4ebb23cc6ad548868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updatesPerSecond: 5
+--- !u!114 &5226844330495553966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,19 +110,25 @@ MonoBehaviour:
   boid: {fileID: 0}
   targetGameObject: {fileID: 0}
   target: {x: 0, y: 0, z: 0}
-  distanceInFront: 150
---- !u!114 &1841269720
+  distanceInFront: 0
+--- !u!114 &1841269719
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181362338766038040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9396d808ab7e5ae4f915513a55ae8a64, type: 3}
+  m_Script: {fileID: 11500000, guid: 13836386924056c4496af12f8aefad61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weight: 1
+  force: {x: 0, y: 0, z: 0}
+  boid: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  slowingDistance: 125
+  targetGameObject: {fileID: 0}
 --- !u!1 &4831307056182206404
 GameObject:
   m_ObjectHideFlags: 0

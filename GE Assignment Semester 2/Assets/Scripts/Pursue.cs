@@ -25,8 +25,5 @@ public class Pursue : SteeringBehaviour
         else {
             return Vector3.zero;
         }
-        
-       
-        
     }
 }
