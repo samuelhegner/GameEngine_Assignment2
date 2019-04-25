@@ -352,8 +352,6 @@ public class VultureController : MonoBehaviour
 
     StateMachine stateMachine;
 
-    public GameObject explosionLarge;
-
 
     public bool needsHelp;
 
@@ -388,7 +386,6 @@ public class VultureController : MonoBehaviour
 
     void OnDestroy()
     {
-        Instantiate(explosionLarge, transform.position, Random.rotation);
         CurrentShips.RemoveEnemy(gameObject);
     }
 }

@@ -10,6 +10,8 @@ public class Health : MonoBehaviour
 
     public GameObject[] smokes;
 
+    public GameObject explosionLarge;
+
     bool smoke;
 
     void Awake()
@@ -20,6 +22,8 @@ public class Health : MonoBehaviour
     void Update()
     {
         if (health <= 0) {
+            Instantiate(explosionLarge, transform.position, Random.rotation);
+
             Destroy(gameObject);
         }
 
