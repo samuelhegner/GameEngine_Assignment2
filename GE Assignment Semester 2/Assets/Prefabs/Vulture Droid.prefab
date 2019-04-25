@@ -4738,6 +4738,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3777409980523317816}
   - component: {fileID: 4375706999629063244}
+  - component: {fileID: 7585133499263187712}
   - component: {fileID: 5506795611815026611}
   - component: {fileID: 453969788751062627}
   - component: {fileID: 6520840270000264717}
@@ -4750,6 +4751,7 @@ GameObject:
   - component: {fileID: 5563341900883209032}
   - component: {fileID: 1560515153022888255}
   - component: {fileID: 4681654577754693291}
+  - component: {fileID: 6088240835823777809}
   m_Layer: 9
   m_Name: Vulture Droid
   m_TagString: Confederation
@@ -4807,6 +4809,22 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7585133499263187712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560515153022888254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd364972141154349956323dcaf69655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  force: {x: 0, y: 0, z: 0}
+  boid: {fileID: 0}
+  minMomentum: 20
 --- !u!114 &5506795611815026611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5001,7 +5019,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   shoot: 0
-  shotsPerSecond: 5
+  shotsPerSecond: 4
   updateShootPerSecond: 1
   radiusOfSphereCast: 12
   maxSphereCastDistance: 500
@@ -5027,6 +5045,111 @@ MonoBehaviour:
   - {fileID: 6117439111480598639}
   explosionLarge: {fileID: 196045872528889826, guid: 870d14959f1c2434e95ba82d9ae21742,
     type: 3}
+--- !u!82 &6088240835823777809
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560515153022888254}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 08e03baa729ad4148b43c748d3b99e8d, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.002
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.19663239
+      value: 0.29462117
+      inSlope: -0.9665711
+      outSlope: -0.9665711
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1.002004
+      outSlope: -1.002004
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2027149339240167894
 GameObject:
   m_ObjectHideFlags: 0

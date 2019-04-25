@@ -23078,6 +23078,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1492971283507248037}
   - component: {fileID: 2870844563819708603}
+  - component: {fileID: 5131406178296353790}
   - component: {fileID: 7816574477409109276}
   - component: {fileID: 7439184382286975018}
   - component: {fileID: 6688655613538695370}
@@ -23090,6 +23091,7 @@ GameObject:
   - component: {fileID: 385591316818931573}
   - component: {fileID: 2357987113265731693}
   - component: {fileID: 3112256812936249892}
+  - component: {fileID: 6602380963603335517}
   m_Layer: 9
   m_Name: ARC 170
   m_TagString: Republic
@@ -23145,6 +23147,22 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5131406178296353790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357987113265731692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd364972141154349956323dcaf69655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  force: {x: 0, y: 0, z: 0}
+  boid: {fileID: 0}
+  minMomentum: 20
 --- !u!114 &7816574477409109276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23344,7 +23362,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   shoot: 0
-  shotsPerSecond: 5
+  shotsPerSecond: 4
   updateShootPerSecond: 1
   radiusOfSphereCast: 12
   maxSphereCastDistance: 500
@@ -23370,6 +23388,111 @@ MonoBehaviour:
   - {fileID: 3645893027789716641}
   explosionLarge: {fileID: 196045872528889826, guid: 870d14959f1c2434e95ba82d9ae21742,
     type: 3}
+--- !u!82 &6602380963603335517
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357987113265731692}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 5d5b87ba98db9f64d8048c9fc9f13ade, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.002
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.23749325
+      value: 0.2620448
+      inSlope: -1.002004
+      outSlope: -1.002004
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1.002004
+      outSlope: -1.002004
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2363588407738613277
 GameObject:
   m_ObjectHideFlags: 0

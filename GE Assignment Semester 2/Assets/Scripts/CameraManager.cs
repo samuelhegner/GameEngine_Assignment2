@@ -51,12 +51,15 @@ public class CameraManager : MonoBehaviour
                     }
                     
                     newCamera = Instantiate(cameraPrefab, transform.position, transform.rotation);
+                    newCamera.GetComponent<Camera>().enabled = false;
                     newCamera.GetComponent<CameraSetup>().attached = newPosition;
                     newCamera.transform.rotation = newCamera.GetComponent<CameraSetup>().attached.transform.rotation;
                     newCamera.GetComponent<CameraSetup>().ally = true;
 
+
+
                     if (previousCamera != null) {
-                        Destroy(previousCamera);
+                        Invoke("DestroyCamera", 1f);
                     }
                 }
                 else if (switchesMade > 1 && switchesMade % 2 == 0) {
@@ -124,10 +127,10 @@ public class CameraManager : MonoBehaviour
                 if (arrayToCheck[i] != null)
                 {
                     VultureController controller = arrayToCheck[i].GetComponent<VultureController>();
-                    if (controller.enemyChasing != null
-                        && Vector3.Distance(controller.enemyChasing.transform.position, controller.transform.position) < distFromObjToChase
-                        || controller.enemyToChase != null
-                        && Vector3.Distance(controller.enemyToChase.transform.position, controller.transform.position) < distFromObjToChase)
+                    if (controller.enemyToChase != null
+                        && Vector3.Distance(controller.enemyToChase.transform.position, controller.transform.position) < distFromObjToChase
+                        || controller.enemyChasing != null
+                        && Vector3.Distance(controller.enemyChasing.transform.position, controller.transform.position) < distFromObjToChase)
                     {
                         possibleObj = controller.gameObject;
                         if (controller.enemyToChase != null)
@@ -167,5 +170,11 @@ public class CameraManager : MonoBehaviour
                 return arrayToCheck[Random.Range(0, arrayToCheck.Length - 1)].transform.Find("CameraBack").gameObject;
             }
         }
+    }
+
+    private void DestroyCamera()
+    {
+        newCamera.GetComponent<Camera>().enabled = true;
+        Destroy(previousCamera);
     }
 }

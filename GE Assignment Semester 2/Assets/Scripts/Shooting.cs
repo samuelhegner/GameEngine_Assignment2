@@ -22,9 +22,12 @@ public class Shooting : MonoBehaviour
 
     public Arc170Controller controller;
 
+    AudioSource audioSource;
+
     void Start()
     {
         bin = GameObject.FindGameObjectWithTag("Bin");
+        audioSource = GetComponent<AudioSource>();
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).gameObject.tag == "Cannon")
@@ -71,6 +74,8 @@ public class Shooting : MonoBehaviour
                     GameObject newBullet = Instantiate(bullet, cannon.transform.position, cannon.transform.rotation);
                     newBullet.GetComponent<Bullet>().parent = gameObject;
                     newBullet.transform.parent = bin.transform;
+                    audioSource.Stop();
+                    audioSource.Play();
                 }
             }
             yield return new WaitForSeconds(1f / shotsPerSecond);
