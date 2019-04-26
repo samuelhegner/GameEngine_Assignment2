@@ -11,6 +11,7 @@ TagManager:
   - Manager
   - Bin
   - CameraPosition
+  - Door
   layers:
   - Default
   - TransparentFX

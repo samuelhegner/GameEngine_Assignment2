@@ -7,6 +7,8 @@ public class CameraSetup : MonoBehaviour
     public GameObject attached;
     public bool ally;
 
+    public bool randomFoV;
+
 
     Camera cam;
 
@@ -54,6 +56,8 @@ public class CameraSetup : MonoBehaviour
 
     void SetUp() {
         cam = GetComponent<Camera>();
-        cam.fieldOfView = Random.Range(45, 75);
+        if (randomFoV) {
+            cam.fieldOfView = Random.Range(55, 75);
+        }
     }
 }

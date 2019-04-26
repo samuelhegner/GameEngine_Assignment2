@@ -101,7 +101,7 @@ class MissileExplode : State
         for (int i = 0; i < controller.droids.Count; i++) {
             controller.droids[i].transform.parent = null;
             controller.droids[i].transform.rotation = Random.rotation;
-            controller.droids[i].transform.position = owner.transform.TransformPoint(Random.insideUnitSphere * 10f);
+            controller.droids[i].transform.position = owner.transform.TransformPoint(Random.insideUnitSphere * 4f);
             controller.droids[i].SetActive(true);
         }
 
