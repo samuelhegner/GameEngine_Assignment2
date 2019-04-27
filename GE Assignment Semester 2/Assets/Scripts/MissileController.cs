@@ -68,15 +68,17 @@ class MissileChase : State
         controller = owner.GetComponent<MissileController>();
         seekFront = owner.GetComponent<SeekFront>();
 
-        seekFront.targetGameObject = GameObject.Find("Obiwan");
+        seekFront.targetGameObject = GameObject.Find("Anakin");
         seekFront.enabled = true;
     }
 
     public override void Think()
     {
-        
+        Debug.Log("Test");
+        Debug.Log(seekFront.distanceToTarget);
 
-        if (Vector3.Distance(owner.transform.position, seekFront.target) < 50f) {
+        seekFront = owner.GetComponent<SeekFront>();
+        if (seekFront.distanceToTarget < 50f) {
             owner.ChangeState(new MissileExplode());
         }
     }
@@ -99,13 +101,13 @@ class MissileExplode : State
         MonoBehaviour.Instantiate(controller.explosionLarge, owner.transform.position, Random.rotation);
 
         for (int i = 0; i < controller.droids.Count; i++) {
-            controller.droids[i].transform.parent = null;
+            controller.droids[i].transform.parent = GameObject.Find("Bin").transform;
             controller.droids[i].transform.rotation = Random.rotation;
             controller.droids[i].transform.position = owner.transform.TransformPoint(Random.insideUnitSphere * 4f);
             controller.droids[i].SetActive(true);
         }
 
-        MonoBehaviour.Destroy(owner.gameObject);
+        controller.DestroyMissile();
     }
 
     public override void Think()
@@ -155,5 +157,12 @@ public class MissileController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void DestroyMissile()
+    {
+        gameObject.SetActive(false);
+        droids.Clear();
+        Destroy(gameObject, 2f);
     }
 }

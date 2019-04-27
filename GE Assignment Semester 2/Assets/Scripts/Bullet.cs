@@ -16,8 +16,9 @@ public class Bullet : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        CancelInvoke();
         Invoke("DestroySelf", 15f);
     }
 
@@ -32,6 +33,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject != parent) {
             if (other.GetComponent<Health>()) {
                 other.GetComponent<Health>().RemoveHealth(bulletDamage);
+                Instantiate(explosionSmall, transform.position, Random.rotation);
             }
 
             DestroySelf();
@@ -40,7 +42,7 @@ public class Bullet : MonoBehaviour
 
     void DestroySelf()
     {
-        Instantiate(explosionSmall, transform.position, Random.rotation);
-        Destroy(gameObject);
+        GetComponent<TrailRenderer>().enabled = false;
+        gameObject.SetActive(false);
     }
 }

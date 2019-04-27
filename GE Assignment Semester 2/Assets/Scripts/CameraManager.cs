@@ -36,6 +36,11 @@ public class CameraManager : MonoBehaviour
                 float ranTime = 0;
                 if (switchesMade == 0)
                 {
+                    if (newCamera != null)
+                    {
+                        previousCamera = newCamera;
+                    }
+
                     CreateLeaderCamera();
                     switchesMade++;
 
@@ -48,6 +53,11 @@ public class CameraManager : MonoBehaviour
                 }
                 else if (switchesMade == 1)
                 {
+                    if (newCamera != null)
+                    {
+                        previousCamera = newCamera;
+                    }
+
                     CreateSideCamera();
                     switchesMade++;
 

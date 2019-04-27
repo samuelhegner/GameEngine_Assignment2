@@ -9,16 +9,19 @@ public class SeekFront : SteeringBehaviour
 
     public float distanceInFront;
 
+    public float distanceToTarget;
+
     public override Vector3 Calculate()
     {
-        return boid.ArriveForce(target);
+        distanceToTarget = Vector3.Distance(boid.transform.position, targetGameObject.transform.TransformPoint(0, 0, distanceInFront));
+        return boid.ArriveForce(targetGameObject.transform.TransformPoint(0, 0, distanceInFront));
     }
 
     public void Update()
     {
-        if (targetGameObject != null)
-        {
-            target = targetGameObject.transform.TransformPoint(0, 0, distanceInFront);
-        }
+        //if (targetGameObject != null)
+        //{
+            //target = targetGameObject.transform.TransformPoint(0, 0, distanceInFront);
+        //}
     } 
 }

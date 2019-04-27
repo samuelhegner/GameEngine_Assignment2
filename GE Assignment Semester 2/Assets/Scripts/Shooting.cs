@@ -71,12 +71,22 @@ public class Shooting : MonoBehaviour
         {
             if (shoot) {
                 foreach (GameObject cannon in cannons) {
-                    GameObject newBullet = Instantiate(bullet, cannon.transform.position, cannon.transform.rotation);
+                    GameObject newBullet;
+                    if (cannons.Count == 4)
+                    {
+                         newBullet = Object_Pool.Instance.SpawnFromPool("BulletRed", cannon.transform.position, cannon.transform.rotation);
+                    }
+                    else { 
+                         newBullet = Object_Pool.Instance.SpawnFromPool("BulletBlue", cannon.transform.position, cannon.transform.rotation);
+                    }
+
                     newBullet.GetComponent<Bullet>().parent = gameObject;
-                    newBullet.transform.parent = bin.transform;
-                    audioSource.Stop();
-                    audioSource.Play();
+                    newBullet.GetComponent<TrailRenderer>().enabled = true;
+                    newBullet.GetComponent<TrailRenderer>().Clear();
+                    //newBullet.transform.parent = bin.transform; 
                 }
+                audioSource.Stop();
+                audioSource.Play();
             }
             yield return new WaitForSeconds(1f / shotsPerSecond);
         }

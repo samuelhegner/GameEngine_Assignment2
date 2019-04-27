@@ -49,6 +49,8 @@ public class KeystoneActivator : MonoBehaviour
         {
             if (!trigger1) {
                 cameraManager.active = false;
+                Destroy(cameraManager.newCamera);
+                Destroy(cameraManager.previousCamera);
                 vulture.SetActive(true);
                 FollowCam2.gameObject.SetActive(true);
                 vulture.transform.Find("Missile").GetComponent<MissileController>().launch = true;
