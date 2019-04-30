@@ -31,7 +31,8 @@ This repo uses Git LFS. If you don't have Git LFS you wont clone the occlusion c
 ## What I am most proud of in the assignment
 The project as a whole was quite a challenge as a whole. I am proud of the fact that I got the dogfighting consistently well. This is the part that took by far the longest and required multiple rewrites and changes in planning. There are still occationally issues with more than one ship chasing another, but these are few and far between and don't change the experience. Even though the code behind the ai is quite straight forward, it still looks complex when watching it and in combination with the dynamic camera changer, the action is quite exciting. The camera changer and the set pieces like the missile bit and the final hangar section are cool aswell. It does feel like a movie. Since the battle is contrained to an area infornt of the jedi ships, there is always action to be seen and even 25 ships pers side feels like a big battle. Since the spawner continuously spawns new ships, the battle is as long as you want it to be and feels and looks nice. The whole scene looks great, thanks to excelent free to use models which can be found in the credits section as well as some basic post processing. The performance is a little disapointing but I did my best to optimise the scene with occlusion culling and some other changes. I'm also proud of the audio which required lots of editing to make them sound bareable to listen to on repeat. Here is a video of one simulated battle incase you want to see it in action without having to clone or download a build:
 
-##Credits
+## Credits
+
 Models: https://sketchfab.com/doctor10?fbclid=IwAR33shoYLUgNjPiY1UD9cnE2rDpOR-l4gG68tH4dlXV9JG8CmZ0gr7M_Zc4
         https://sketchfab.com/3d-models/aim-120c-amraam-62b79b0f76e44684ad43adcc2ae3cdb9
         https://3dwarehouse.sketchup.com/model/71ce6a93-c5ac-462b-a24d-9ba19ef7ba0d/arc-170
