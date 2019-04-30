@@ -24,8 +24,11 @@ public class Shooting : MonoBehaviour
 
     AudioSource audioSource;
 
+    GameObject objLastScanned;
+
     void Start()
     {
+        objLastScanned = null;
         bin = GameObject.FindGameObjectWithTag("Bin");
         audioSource = GetComponent<AudioSource>();
         for (int i = 0; i < transform.childCount; i++)
@@ -49,7 +52,7 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
-        if (controller != null && shoot && controller.enemyToChase != null)
+        if (controller != null && shoot && controller.enemyToChase != null && objLastScanned != null && objLastScanned == controller.enemyToChase.gameObject)
         {
             foreach (GameObject cannon in cannons)
             {
@@ -106,12 +109,15 @@ public class Shooting : MonoBehaviour
                 if (info.transform.tag != transform.tag && info.transform.tag != "Bullet")
                 {
                     shoot = true;
+                    objLastScanned = info.transform.gameObject;
                 }
                 else {
+                    objLastScanned = null;
                     shoot = false;
                 }
             }
             else {
+                objLastScanned = null;
                 shoot = false;
             }
             
