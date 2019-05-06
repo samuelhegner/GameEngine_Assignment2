@@ -19,17 +19,20 @@ public class Bullet : MonoBehaviour
     void Awake()
     {
         CancelInvoke();
+        //Destroy itself after 15 seconds
         Invoke("DestroySelf", 15f);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //moves the bullet forward
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider other)
     {
+        //if the bullet his something other than the object that spawned it, explode and destroy the bullet
         if (other.gameObject != parent) {
             if (other.GetComponent<Health>()) {
                 other.GetComponent<Health>().RemoveHealth(bulletDamage);

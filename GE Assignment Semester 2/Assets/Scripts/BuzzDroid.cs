@@ -13,12 +13,11 @@ public class BuzzDroid : MonoBehaviour
     // Update is called once per frame
     void OnCollisionEnter(Collision collision)
     {
+        //if the buzz droid hits the jedi ships, attach itself to the ship
         if (collision.gameObject.name == "Obiwan" || collision.gameObject.name == "Anakin") {
             GetComponent<Rigidbody>().isKinematic = true;
             transform.parent = collision.transform;
             transform.rotation = Quaternion.LookRotation(-collision.gameObject.transform.right, collision.gameObject.transform.up);
         }
-        
-        
     }
 }

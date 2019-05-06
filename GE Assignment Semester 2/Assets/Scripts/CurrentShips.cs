@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CurrentShips : MonoBehaviour
 {
+    //easily accessible list of current ships and other usefull information
+    //static makes it easier to get the info in all other scripts
 
     public List<GameObject> enemyShips = new List<GameObject>();
 

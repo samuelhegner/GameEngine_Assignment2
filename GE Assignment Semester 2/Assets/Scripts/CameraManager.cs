@@ -30,10 +30,13 @@ public class CameraManager : MonoBehaviour
         
     }
 
+    //Coroutine that automatically switches the cameras
     IEnumerator ChangeCamera() {
         while (true) {
             if (active) {
                 float ranTime = 0;
+
+                //first switch creates the leader cam
                 if (switchesMade == 0)
                 {
                     if (newCamera != null)
@@ -51,6 +54,7 @@ public class CameraManager : MonoBehaviour
 
                     ranTime = longestTime;
                 }
+                //second switch, creates the side camera
                 else if (switchesMade == 1)
                 {
                     if (newCamera != null)
@@ -68,6 +72,7 @@ public class CameraManager : MonoBehaviour
 
                     ranTime = longestTime * 2f;
                 }
+                //later switches create cameras at arc 170 and vulture droids alternatingly
                 else if (switchesMade > 1 && switchesMade % 2 != 0)
                 {
                     switchesMade++;
@@ -119,6 +124,7 @@ public class CameraManager : MonoBehaviour
         }
     }
 
+    //creates the camera in the side position, showing the ships approaching each other
     public void CreateSideCamera() {
         GameObject objToSpawn = GameObject.Find("SideCamera");
 
@@ -129,24 +135,36 @@ public class CameraManager : MonoBehaviour
         newCamera.GetComponent<CameraSetup>().ally = true;
     }
 
+    //function that searches for a new camera position
     public GameObject SearchForNewCameraPosition(GameObject [] arrayToCheck, bool ally) {
+        //possible object to watch
         GameObject possibleObj = null;
 
+        //sets up the float for the closest distance
         float distFromObjToChase = float.MaxValue;
+
+        //bool to check whether to spawn the camera infront or behind the ship
         bool front = false;
 
         for (int i = 0; i < arrayToCheck.Length; i++) {
+
+            //checks if the camera should attach to ally or enemy ship
             if (ally == true)
             {
                 if (arrayToCheck[i] != null) {
                     Arc170Controller controller = arrayToCheck[i].GetComponent<Arc170Controller>();
+
+                    //checks if a ship being chased and the distance is closer than previous distances or if a ship is being chased and the distance is closer than previous distances
                     if (controller.enemyChasing != null
                         && Vector3.Distance(controller.enemyChasing.transform.position, controller.transform.position) < distFromObjToChase
                         || controller.enemyToChase != null
                         && Vector3.Distance(controller.enemyToChase.transform.position, controller.transform.position) < distFromObjToChase)
                     {
-                        
+                        //set the new possible ship to attach to
                         possibleObj = controller.gameObject;
+
+                        //if the ship is being chased, attach to front
+                        //else attach to back
                         if (controller.enemyToChase != null)
                         {
                             distFromObjToChase = Vector3.Distance(controller.enemyToChase.transform.position, controller.transform.position);
@@ -187,7 +205,7 @@ public class CameraManager : MonoBehaviour
         }
 
 
-
+        //creates a camera at previously selected position
         if (possibleObj != null && front)
         {
             return possibleObj.transform.Find("CameraFront").gameObject;
@@ -197,6 +215,7 @@ public class CameraManager : MonoBehaviour
             return possibleObj.transform.Find("CameraBack").gameObject;
         }
         else {
+            //else create a camera at a random ship
             int ran = Random.Range(0, 2);
             if (ran == 0)
             {
@@ -210,15 +229,18 @@ public class CameraManager : MonoBehaviour
         }
     }
 
+    //destroys the previous camera
     private void DestroyCamera()
     {
         newCamera.GetComponent<Camera>().enabled = true;
         Destroy(previousCamera);
     }
 
+    //function that creates the camera that shows the Arc 170 ship in formation
     void CreateLeaderCamera() {
         GameObject objToSpawn = null;
 
+        //finds the leader and spawns a camera behind the leader
         for (int i = 0; i < CurrentShips.instance.allyShips.Count; i++) {
             if (CurrentShips.instance.allyShips[i].GetComponent<Arc170Controller>().leader) {
                 objToSpawn = CurrentShips.instance.allyShips[i].transform.Find("CameraLeader").gameObject;

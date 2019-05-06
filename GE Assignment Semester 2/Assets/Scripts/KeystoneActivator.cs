@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class KeystoneActivator : MonoBehaviour
 {
+
+    //Key moments in the game get triggered in this script based on which waypoint the jedi ship is at
+
     CameraManager cameraManager;
 
     public Camera FollowCam1;

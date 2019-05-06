@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//controller for the missile
+
+//state before the missile is launched
 class MissileIdle : State {
 
     MissileController controller;
@@ -25,6 +28,7 @@ class MissileIdle : State {
     }
 }
 
+//state that gets some clearance from the ship
 class MissileClearShip : State {
 
     MissileController controller;
@@ -57,6 +61,7 @@ class MissileClearShip : State {
     }
 }
 
+//State that seeks the from on the jedi ship
 class MissileChase : State
 { 
     MissileController controller;
@@ -74,9 +79,6 @@ class MissileChase : State
 
     public override void Think()
     {
-        Debug.Log("Test");
-        Debug.Log(seekFront.distanceToTarget);
-
         seekFront = owner.GetComponent<SeekFront>();
         if (seekFront.distanceToTarget < 50f) {
             owner.ChangeState(new MissileExplode());
@@ -89,6 +91,7 @@ class MissileChase : State
     }
 }
 
+//state that explodes the missile and creates the buzz droids
 class MissileExplode : State
 {
     MissileController controller;
@@ -121,6 +124,7 @@ class MissileExplode : State
     }
 }
 
+//controller for the missile
 public class MissileController : MonoBehaviour
 {
     StateMachine stateMachine;

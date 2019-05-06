@@ -77,6 +77,7 @@ class ChaseDownV : State
     }
 }
 
+//state that approaches a random arc170 ship
 class ApproachEnemyV : State
 {
     Seek seek;
@@ -88,6 +89,7 @@ class ApproachEnemyV : State
         controller.busy = false;
         seek = owner.GetComponent<Seek>();
 
+        //picks a random ally ship
         int ran = Random.Range(0, CurrentShips.enemyNumber);
 
         seek.targetGameObject = CurrentShips.instance.allyShips[ran];

@@ -13,7 +13,7 @@ public class CameraSwitch : MonoBehaviour
         arrive = GetComponent<Arrive>();
     }
 
-    // Update is called once per frame
+    //switches camera ater missile is destroyed
     void Update()
     {
         if (gameObject.activeSelf) {

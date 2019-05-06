@@ -14,7 +14,7 @@ public class Door : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    //closes the door
     void Update()
     {
         if(move)
